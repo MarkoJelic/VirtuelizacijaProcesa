@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Common
+{
+    [ServiceContract]
+    public interface IEstimate
+    {
+        [OperationContract]
+        Load GetValue(string query);
+
+        [OperationContract]
+        FileManipulationResults SendFile(FileManipulationOptions options);
+
+        [OperationContract]
+        FileManipulationResults GetFiles(FileManipulationOptions options);
+
+        //[OperationContract]
+        //Load GetMax();
+
+        //[OperationContract]
+        //Load GetStand();
+    }
+}
