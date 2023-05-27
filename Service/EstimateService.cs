@@ -1,4 +1,6 @@
-﻿using Common;
+﻿using Application;
+using Common;
+using FileSystemManipulation;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -33,7 +35,13 @@ namespace Service
 
         public FileManipulationResults SendFile(FileManipulationOptions options)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Receiving file with name: \"{ options.FileName}\"");
+            return new InsertFileHandler(GetInsertFileCommand(options)).InsertFile();
+        }
+
+        private ICommand GetInsertFileCommand(FileManipulationOptions options)
+        {
+            return new FileSystemInsertFileCommand(options, path);
         }
     }
 }

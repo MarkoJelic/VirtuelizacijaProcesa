@@ -53,6 +53,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{712d2b93-8547-4d48-ade9-851cd5e95444}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{f62d3b82-005b-40c0-a152-f1b0a19194a8}</Project>
       <Name>Common</Name>
@@ -60,6 +64,10 @@
     <ProjectReference Include="..\DataBase\DataBase.csproj">
       <Project>{d098a876-2904-424e-b183-aacea3ed17f4}</Project>
       <Name>DataBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileSystemManipulation\FileSystemManipulation.csproj">
+      <Project>{9264f90e-6e11-414a-a114-fb3ee0348813}</Project>
+      <Name>FileSystemManipulation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

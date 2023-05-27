@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{712D2B93-8547-4D48-ADE9-851CD5E95444}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemManipulation", "FileSystemManipulation\FileSystemManipulation.csproj", "{9264F90E-6E11-414A-A114-FB3EE0348813}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{712D2B93-8547-4D48-ADE9-851CD5E95444}.Release|Any CPU.Build.0 = Release|Any CPU
 		{712D2B93-8547-4D48-ADE9-851CD5E95444}.Release|x64.ActiveCfg = Release|Any CPU
 		{712D2B93-8547-4D48-ADE9-851CD5E95444}.Release|x64.Build.0 = Release|Any CPU
+		{9264F90E-6E11-414A-A114-FB3EE0348813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9264F90E-6E11-414A-A114-FB3EE0348813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9264F90E-6E11-414A-A114-FB3EE0348813}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9264F90E-6E11-414A-A114-FB3EE0348813}.Debug|x64.Build.0 = Debug|Any CPU
+		{9264F90E-6E11-414A-A114-FB3EE0348813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9264F90E-6E11-414A-A114-FB3EE0348813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9264F90E-6E11-414A-A114-FB3EE0348813}.Release|x64.ActiveCfg = Release|Any CPU
+		{9264F90E-6E11-414A-A114-FB3EE0348813}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
