@@ -94,15 +94,7 @@ namespace Service
                     fs.Write(title, 0, title.Length);
                 }
 
-                // Open the stream and read it back.    
-                //using (StreamReader sr = File.OpenText(fileName))
-                //{
-                //    string s = "";
-                //    while ((s = sr.ReadLine()) != null)
-                //    {
-                //        Console.WriteLine(s);
-                //    }
-                //}
+                
             }
             catch (Exception Ex)
             {

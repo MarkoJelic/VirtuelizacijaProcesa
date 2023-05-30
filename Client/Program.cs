@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    //public delegate void MyDelegate(string query);
     class Program
     {
         static void Main(string[] args)
@@ -33,7 +32,6 @@ namespace Client
 
             ChannelFactory<IEstimate> channel = new ChannelFactory<IEstimate>("EstimateService");
             IEstimate proxy = channel.CreateChannel();
-            //proxy.Del()
             string s;
             IDownloader downloader = GetDownloader(proxy, downloadPath);
             do
@@ -42,10 +40,6 @@ namespace Client
                 s = Console.ReadLine();
                 if (s != null && !string.IsNullOrEmpty(s))
                 {
-                    //if (s == "min")
-                    //{
-                    //    downloader.Download(s);
-                    //}
                     string vreme = DateTime.Now.ToString();
                     proxy.GetValue(s, vreme);
                     downloader.Download("Measurements.txt");
@@ -56,9 +50,8 @@ namespace Client
             } while (s != null && !string.IsNullOrEmpty(s));
         }
 
-        private static IDownloader GetDownloader(IEstimate proxy, string path)//, StorageTypes storageType)
+        private static IDownloader GetDownloader(IEstimate proxy, string path)
         {
-            //return new(proxy, path);//, storageType);
             return new StartNameDownloader(proxy, path);
         }
 
@@ -73,13 +66,8 @@ namespace Client
             uploader.Start();
             proxy.CreateObjects(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\fileMeasurements.csv");
 
-            // dodano za probu, IZBRISATI
-            //proxy.GetValue("string test", "string test");
-            
-
             Console.WriteLine("Uploader Client is running. Press any key to return to menu.");
             Console.ReadLine();
-            //Environment.Exit(0);
         }
 
         private static IFileInUseChecker GetFileInUseChecker()

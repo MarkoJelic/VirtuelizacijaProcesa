@@ -24,10 +24,5 @@ namespace Common
         [OperationContract]
         void CreateObjects(string csv_file_path);
 
-        //[OperationContract]
-        //Load GetMax();
-
-        //[OperationContract]
-        //Load GetStand();
     }
 }
