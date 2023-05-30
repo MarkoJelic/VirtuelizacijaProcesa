@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using CsvHelper.Configuration;
 
 namespace Service
 {
@@ -35,18 +36,26 @@ namespace Service
         public void CreateObjects(string csv_file_path)
         {
             //List<Load> objects = new List<Load>();
+            var configuration = new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false, MissingFieldFound = null };
+            
 
             using (var reader = new StreamReader(csv_file_path))
             {
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                using (var csv = new CsvReader(reader, configuration))
                 {
-                    var records = csv.GetRecords<Load>();
-                    // Pozvati metodu iz DataBase
-                    List<Load> loadObjects = records.ToList();
-                    DataBase.Class1.UpdateDB(loadObjects);
+                    List<Load> loadObjects = csv.GetRecords<Load>().ToList();
+                    foreach (Load objekat in loadObjects)
+                    {
+                        if (!double.TryParse(objekat.MeasuredValue.ToString(), out double result))
+                        {
+                            // DataBase.Class1.UpdateDBAudit(loadObjects);
+                        }
+                        else
+                        {
+                            DataBase.Class1.UpdateDB(loadObjects);
+                        }
+                    }
 
-                    //List<Load> loadObjects = records.ToList();
-                    //XElement xmlElements = new XElement("DataBase.TBL_LOAD", loadObjects.Select(i => new XElement("objekat", i)));
                 }
             }
 
@@ -55,7 +64,7 @@ namespace Service
         public FileManipulationResults GetFiles(FileManipulationOptions options)
         {
             Console.WriteLine($"Geting files starting with: \"{ options.FileName}\"");
-            return new GetFilesHandler(GetFilesQuery(options)).GetFiles()
+            return new GetFilesHandler(GetFilesQuery(options)).GetFiles();
         }
 
         public Load GetValue(string query)
