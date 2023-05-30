@@ -18,5 +18,10 @@ namespace DataBase
                                                                                                        new XElement("Value", obj.MeasuredValue)));
             xmlSavePath.Save(savePath);
         }
+
+        public static void UpdateDBAudit(List<Load> lista)
+        {
+
+        }
     }
 }

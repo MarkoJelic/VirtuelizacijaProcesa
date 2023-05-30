@@ -46,6 +46,7 @@ namespace Client
             IUploader uploader = GetUploader(GetFileSender(proxy, GetFileInUseChecker(), uploadPath), uploadPath);
             uploader.Start();
             proxy.CreateObjects(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\fileMeasurements.csv");
+            //proxy.Del("string");
             //sr.Close();
             //fs.Close();
 

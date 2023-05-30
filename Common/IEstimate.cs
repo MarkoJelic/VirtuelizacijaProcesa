@@ -11,7 +11,7 @@ namespace Common
     public interface IEstimate
     {
         [OperationContract]
-        Load GetValue(string query);
+        void GetValue(string query);
 
         [OperationContract]
         FileManipulationResults SendFile(FileManipulationOptions options);
