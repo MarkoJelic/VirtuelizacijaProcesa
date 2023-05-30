@@ -73,6 +73,40 @@ namespace Service
             var maxValue = objekti.Aggregate((max, next) => next.MeasuredValue > max.MeasuredValue ? next : max);
             double avg = values.Average();
             var stdDev = Math.Sqrt(values.Average(v => Math.Pow(v - avg, 2)));
+
+
+            string fileName = @"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\Test.txt";
+
+            try
+            {
+                // Check if file already exists. If yes, delete it.     
+                if (File.Exists(fileName))
+                {
+                    File.Delete(fileName);
+                }
+
+                // Create a new file     
+                using (FileStream fs = File.Create(fileName))
+                {
+                    // Add some text to file    
+                    Byte[] title = new UTF8Encoding(true).GetBytes("Min: " + minValue.ToString() + "  Max: " + maxValue + "  StdDev:" + stdDev);
+                    fs.Write(title, 0, title.Length);
+                }
+
+                // Open the stream and read it back.    
+                //using (StreamReader sr = File.OpenText(fileName))
+                //{
+                //    string s = "";
+                //    while ((s = sr.ReadLine()) != null)
+                //    {
+                //        Console.WriteLine(s);
+                //    }
+                //}
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine(Ex.ToString());
+            }
         }
 
         public void CreateObjects(string csv_file_path)
