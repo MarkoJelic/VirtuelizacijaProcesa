@@ -25,15 +25,12 @@ namespace Service
     {
         MyDelegate Del;
         private string path;
-        //IEnumerable<Load> objects;
 
         public EstimateService()
         {
             Del += GetValue;
             this.path = ConfigurationManager.AppSettings["path"];
             FileDirUtil.CheckCreatePath(path);
-            //objects = CreateObjects(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\fileMeasurements.csv");
-            //Console.WriteLine(objects.Count());
         }
 
         public void GetValue(string query)
@@ -94,9 +91,7 @@ namespace Service
 
         public void CreateObjects(string csv_file_path)
         {
-            //List<Load> objects = new List<Load>();
             var configuration = new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false, MissingFieldFound = null };
-            
 
             using (var reader = new StreamReader(csv_file_path))
             {
@@ -131,19 +126,6 @@ namespace Service
                     }
 
                     DataBase.Class1.UpdateDBAudit(audits);
-
-
-                    //foreach (Load objekat in loadObjects)
-                    //{
-                    //    if (!double.TryParse(objekat.MeasuredValue.ToString(), out double result))
-                    //    {
-                    //        // DataBase.Class1.UpdateDBAudit(loadObjects);
-                    //    }
-                    //    else
-                    //    {
-                    //        //DataBase.Class1.UpdateDB(loadObjects);
-                    //    }
-                    //}
 
                 }
             }

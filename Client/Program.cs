@@ -1,5 +1,6 @@
 ﻿using Common;
 using CsvHelper;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Client
 {
+    //public delegate void MyDelegate(string query);
     class Program
     {
         static void Main(string[] args)
@@ -22,45 +24,52 @@ namespace Client
                 showMenu = MainMenu();
             }
 
-            //var uploadPath = ConfigurationManager.AppSettings["uploadPath"];
-            //FileDirUtil.CheckCreatePath(uploadPath);
-
-            //ChannelFactory<IEstimate> channel = new ChannelFactory<IEstimate>("EstimateService");
-            //IEstimate proxy = channel.CreateChannel();
         }
 
         private static void GetValues()
         {
-            
+            string downloadPath = ConfigurationManager.AppSettings["downloadPath"];
+            FileDirUtil.CheckCreatePath(downloadPath);
+
+            ChannelFactory<IEstimate> channel = new ChannelFactory<IEstimate>("EstimateService");
+            IEstimate proxy = channel.CreateChannel();
+            string s;
+            IDownloader downloader = GetDownloader(proxy, downloadPath);
+            do
+            {
+                Console.WriteLine("Type file name template and Enter to download. Press only Enter for exit");
+                s = Console.ReadLine();
+                if (s != null && !string.IsNullOrEmpty(s))
+                {
+                    downloader.Download(s);
+                }
+            } while (s != null && !string.IsNullOrEmpty(s));
+        }
+
+        private static IDownloader GetDownloader(IEstimate proxy, string path)//, StorageTypes storageType)
+        {
+            //return new(proxy, path);//, storageType);
+            return new StartNameDownloader(proxy, path);
         }
 
         private static void SendCsvFile()
         {
             var uploadPath = ConfigurationManager.AppSettings["uploadPath"];
             FileDirUtil.CheckCreatePath(uploadPath);
-            //FileStream fs = new FileStream(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Client\bin\Debug\fileMeasurements.csv",
-            //    FileMode.Open, FileAccess.Read, FileShare.Read);
-
-            //StreamReader sr = new StreamReader(fs);
-            //var csvReader = new CsvReader(sr, CultureInfo.InvariantCulture);
-
-            //var uploadPath = ConfigurationManager.AppSettings["uploadPath"];
-            //FileDirUtil.CheckCreatePath(uploadPath);
+            
             ChannelFactory<IEstimate> channel = new ChannelFactory<IEstimate>("EstimateService");
             IEstimate proxy = channel.CreateChannel();
             IUploader uploader = GetUploader(GetFileSender(proxy, GetFileInUseChecker(), uploadPath), uploadPath);
             uploader.Start();
-            proxy.CreateObjects(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\fileMeasurements.csv");
+            proxy.CreateObjects(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\fileMeasurementsError.csv");
 
             // dodano za probu, IZBRISATI
             proxy.GetValue("string test");
-            //proxy.Del("string");
-            //sr.Close();
-            //fs.Close();
+            
 
-            Console.WriteLine("Uploader Client is running. Press any key to exit.");
-            Console.ReadLine();
-            Environment.Exit(0);
+            //Console.WriteLine("Uploader Client is running. Press any key to exit.");
+            //Console.ReadLine();
+            //Environment.Exit(0);
         }
 
         private static IFileInUseChecker GetFileInUseChecker()
@@ -79,27 +88,6 @@ namespace Client
             Console.WriteLine("Event Uploader is being used.");
             return new EventUploader(fileSender, uploadPath);
         }
-
-        //private static void CreateCsvFile()
-        //{
-        //    var random = new Random();
-        //    var measurments = new List<Measurement>()
-        //    {
-        //        new Measurement { Value = random.Next(1,101), DateOfMeasurement = DateTime.Now},
-        //        new Measurement { Value = random.Next(1,101), DateOfMeasurement = DateTime.Now.AddHours(1)},
-        //        new Measurement { Value = random.Next(1,101), DateOfMeasurement = DateTime.Now.AddHours(2)},
-        //        new Measurement { Value = random.Next(1,101), DateOfMeasurement = DateTime.Now.AddHours(3)},
-        //        new Measurement { Value = random.Next(1,101), DateOfMeasurement = DateTime.Now.AddHours(4)}
-        //    };
-
-        //    using (var writer = new StreamWriter("fileMeasurements.csv"))
-        //    {
-        //        using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-        //        {
-        //            csv.WriteRecords(measurments);
-        //        }
-        //    }
-        //}
 
         private static bool MainMenu()
         {
@@ -122,7 +110,7 @@ namespace Client
                     SendCsvFile();
                     return true;
                 case "3":
-                    
+
                     return true;
                 case "4":
                     return true;
