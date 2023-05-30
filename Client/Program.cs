@@ -33,16 +33,26 @@ namespace Client
 
             ChannelFactory<IEstimate> channel = new ChannelFactory<IEstimate>("EstimateService");
             IEstimate proxy = channel.CreateChannel();
+            //proxy.Del()
             string s;
             IDownloader downloader = GetDownloader(proxy, downloadPath);
             do
             {
-                Console.WriteLine("Type file name template and Enter to download. Press only Enter for exit");
+                Console.WriteLine("Type min, max or stdDev and Enter to download. Press only Enter for exit");
                 s = Console.ReadLine();
                 if (s != null && !string.IsNullOrEmpty(s))
                 {
-                    downloader.Download(s);
+                    //if (s == "min")
+                    //{
+                    //    downloader.Download(s);
+                    //}
+                    string vreme = DateTime.Now.ToString();
+                    proxy.GetValue(s, vreme);
+                    downloader.Download("Measurements.txt");
+                    Console.WriteLine($"Ime preuzete datoteke: Measurements\nPutanja do datoteke: {downloadPath}Measurements.txt");
                 }
+
+
             } while (s != null && !string.IsNullOrEmpty(s));
         }
 
@@ -61,14 +71,14 @@ namespace Client
             IEstimate proxy = channel.CreateChannel();
             IUploader uploader = GetUploader(GetFileSender(proxy, GetFileInUseChecker(), uploadPath), uploadPath);
             uploader.Start();
-            proxy.CreateObjects(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\fileMeasurementsError.csv");
+            proxy.CreateObjects(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\fileMeasurements.csv");
 
             // dodano za probu, IZBRISATI
-            proxy.GetValue("string test");
+            //proxy.GetValue("string test", "string test");
             
 
-            //Console.WriteLine("Uploader Client is running. Press any key to exit.");
-            //Console.ReadLine();
+            Console.WriteLine("Uploader Client is running. Press any key to return to menu.");
+            Console.ReadLine();
             //Environment.Exit(0);
         }
 
@@ -93,30 +103,20 @@ namespace Client
         {
             Console.Clear();
             Console.WriteLine("Choose an option:");
-            Console.WriteLine("1) Create a CSV file");
-            Console.WriteLine("2) Send CSV file");
-            Console.WriteLine("3) Get min value");
-            Console.WriteLine("4) Get max value");
-            Console.WriteLine("5) Get standard deviation");
-            Console.WriteLine("6) Exit");
+            Console.WriteLine("'Send' to send the CSV file");
+            Console.WriteLine("'Get' to select which value to receive");
+            Console.WriteLine("'Exit' to Exit");
             Console.Write("\r\nSelect an option: ");
 
             switch (Console.ReadLine())
             {
-                case "1":
-                    //CreateCsvFile();
-                    return true;
-                case "2":
+                case "Send":
                     SendCsvFile();
                     return true;
-                case "3":
-
+                case "Get":
+                    GetValues();
                     return true;
-                case "4":
-                    return true;
-                case "5":
-                    return true;
-                case "6":
+                case "Exit":
                     return false;
                 default:
                     return true;

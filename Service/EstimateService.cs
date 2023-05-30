@@ -20,28 +20,30 @@ using System.Text.RegularExpressions;
 
 namespace Service
 {
-    public delegate void MyDelegate(string query);
+    public delegate void MyDelegate(string query, string timeStamp);
     public class EstimateService : IEstimate
     {
-        MyDelegate Del;
+        private MyDelegate del;
         private string path;
 
         public EstimateService()
         {
-            Del += GetValue;
+            //Del += GetValue;
             this.path = ConfigurationManager.AppSettings["path"];
             FileDirUtil.CheckCreatePath(path);
         }
 
-        public void GetValue(string query)
+        //public void GetValue1(MyDelegate myDel)
+        //{
+        //    del += myDel;
+        //    myDel()
+        //}
+
+        public void GetValue(string query, string timeStamp)
         {
             string path = @"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\DataBase\TBL_Load.xml";
 
-            
             List<Load> objekti = new XmlSerialize().ConvertXmlToObjects<Load>(path);
-            
-            
-            
 
             List<double> values = new List<double>();
             foreach (Load o in objekti)
@@ -54,8 +56,9 @@ namespace Service
             double avg = values.Average();
             var stdDev = Math.Sqrt(values.Average(v => Math.Pow(v - avg, 2)));
 
+            //string timeStampTrimmed = String.Concat(timeStamp.Where(c => !Char.IsWhiteSpace(c)));
 
-            string fileName = @"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\Test.txt";
+            string fileName = @"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\Measurements.txt";
 
             try
             {
@@ -68,8 +71,26 @@ namespace Service
                 // Create a new file     
                 using (FileStream fs = File.Create(fileName))
                 {
-                    // Add some text to file    
-                    Byte[] title = new UTF8Encoding(true).GetBytes("Min: " + minValue.MeasuredValue + "  Max: " + maxValue.MeasuredValue + "  StdDev:" + stdDev);
+                    Byte[] title;
+                    //List<string> queryParts = query.Split(' ').ToList();
+                    //for (int i = 0; i < queryParts.Count; i++)
+                    //{
+                    //    title = new UTF8Encoding(true).GetBytes($"{queryParts[i]}: ");
+                    //}
+
+                    if (query == "min")
+                    {
+                        title = new UTF8Encoding(true).GetBytes("Min: " + minValue.MeasuredValue);
+                    }
+                    else if (query == "max")
+                    {
+                        title = new UTF8Encoding(true).GetBytes("Max: " + maxValue.MeasuredValue);
+                    }
+                    else //if (query == "stdDev")
+                    {
+                        title = new UTF8Encoding(true).GetBytes("StdDev: " + stdDev);
+                    }
+                    //Byte[] title = new UTF8Encoding(true).GetBytes("Min: " + minValue.MeasuredValue + "  Max: " + maxValue.MeasuredValue + "  StdDev:" + stdDev);
                     fs.Write(title, 0, title.Length);
                 }
 

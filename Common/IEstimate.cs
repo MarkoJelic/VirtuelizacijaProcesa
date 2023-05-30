@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    //public delegate void MyDelegate(string query, string timeStamp);
+
     [ServiceContract]
     public interface IEstimate
     {
         [OperationContract]
-        void GetValue(string query);
+        void GetValue(string query, string timeStamp);
 
         [OperationContract]
         FileManipulationResults SendFile(FileManipulationOptions options);

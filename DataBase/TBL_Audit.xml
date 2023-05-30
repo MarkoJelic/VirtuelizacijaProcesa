@@ -1,28 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TBL_Audit>
   <Object>
-    <Id>779301199</Id>
-    <TimeStamp>2023-05-30T17:09:04.4583455+02:00</TimeStamp>
-    <MessageType>Err</MessageType>
-    <Message>The conversion cannot be performed.
-    Text: '89.01a'
-    MemberName: MeasuredValue
-    MemberType: System.Double
-    TypeConverter: 'CsvHelper.TypeConversion.DoubleConverter'
-IReader state:
-   ColumnCount: 0
-   CurrentIndex: 2
-   HeaderRecord:
-
-IParser state:
-   ByteCount: 0
-   CharCount: 30
-   Row: 1
-   RawRow: 1
-   Count: 3
-   RawRecord:
-1,05/25/2023 19:34:09,89.01a
-
-</Message>
+    <Id>675713104</Id>
+    <TimeStamp>2023-05-30T19:40:00.2668602+02:00</TimeStamp>
+    <MessageType>Warn</MessageType>
+    <Message>Van opsega!</Message>
+  </Object>
+  <Object>
+    <Id>675713104</Id>
+    <TimeStamp>2023-05-30T19:40:00.2678652+02:00</TimeStamp>
+    <MessageType>Warn</MessageType>
+    <Message>Van opsega!</Message>
+  </Object>
+  <Object>
+    <Id>675713104</Id>
+    <TimeStamp>2023-05-30T19:40:00.2678652+02:00</TimeStamp>
+    <MessageType>Info</MessageType>
+    <Message>Validno!</Message>
+  </Object>
+  <Object>
+    <Id>675713104</Id>
+    <TimeStamp>2023-05-30T19:40:00.2678652+02:00</TimeStamp>
+    <MessageType>Info</MessageType>
+    <Message>Validno!</Message>
+  </Object>
+  <Object>
+    <Id>675713104</Id>
+    <TimeStamp>2023-05-30T19:40:00.2678652+02:00</TimeStamp>
+    <MessageType>Info</MessageType>
+    <Message>Validno!</Message>
   </Object>
 </TBL_Audit>
