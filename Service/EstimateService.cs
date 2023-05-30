@@ -54,7 +54,8 @@ namespace Service
 
         public FileManipulationResults GetFiles(FileManipulationOptions options)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Geting files starting with: \"{ options.FileName}\"");
+            return new GetFilesHandler(GetFilesQuery(options)).GetFiles()
         }
 
         public Load GetValue(string query)
@@ -71,6 +72,11 @@ namespace Service
         private ICommand GetInsertFileCommand(FileManipulationOptions options)
         {
             return new FileSystemInsertFileCommand(options, path);
+        }
+
+        private IQuery GetFilesQuery(FileManipulationOptions options)
+        {
+            return new FileSystemGetFilesQuery(options, path);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Common
 
         public Load(int id, DateTime timeStamp, double measuredValue)
         {
-            this.id = id;
+            this.id = new Random().Next();
             this.timeStamp = timeStamp;
             this.measuredValue = measuredValue;
         }
