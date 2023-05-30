@@ -16,6 +16,7 @@ using System.Xml.Linq;
 using CsvHelper.Configuration;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace Service
 {
@@ -39,29 +40,11 @@ namespace Service
         {
             string path = @"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\DataBase\TBL_Load.xml";
 
-            XmlDocument doc = new XmlDocument();
-            doc.Load(path);
-
-            //foreach
-            List<Load> objekti = new List<Load>();
-
-            try
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(Load));
-                using (var sReader = new StreamReader(path))
-                {
-
-                    using (var reader = XmlReader.Create(sReader))
-                    {
-                        Load objekat = (Load)serializer.Deserialize(reader);
-                        objekti.Add(objekat);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            
+            List<Load> objekti = new XmlSerialize().ConvertXmlToObjects<Load>(path);
+            
+            
+            
 
             List<double> values = new List<double>();
             foreach (Load o in objekti)
@@ -89,7 +72,7 @@ namespace Service
                 using (FileStream fs = File.Create(fileName))
                 {
                     // Add some text to file    
-                    Byte[] title = new UTF8Encoding(true).GetBytes("Min: " + minValue.ToString() + "  Max: " + maxValue + "  StdDev:" + stdDev);
+                    Byte[] title = new UTF8Encoding(true).GetBytes("Min: " + minValue.MeasuredValue + "  Max: " + maxValue.MeasuredValue + "  StdDev:" + stdDev);
                     fs.Write(title, 0, title.Length);
                 }
 
@@ -119,7 +102,37 @@ namespace Service
             {
                 using (var csv = new CsvReader(reader, configuration))
                 {
-                    List<Load> loadObjects = csv.GetRecords<Load>().ToList();
+                    List<Audit> audits = new List<Audit>();
+
+                    try
+                    {
+                        List<Load> loadObjects = csv.GetRecords<Load>().ToList();
+
+                        foreach (var obj in loadObjects)
+                        {
+                            if(obj.MeasuredValue < 10 || obj.MeasuredValue > 60)
+                            {
+                                var audit = new Audit() { Id = new Random().Next(), TimeStamp = DateTime.Now, MessageType = MsgType.Warn, Message = "Van opsega!" };
+                                audits.Add(audit);
+                            }
+                            else
+                            {
+                                var audit = new Audit() { Id = new Random().Next(), TimeStamp = DateTime.Now, MessageType = MsgType.Info, Message = "Validno!" };
+                                audits.Add(audit);
+                            }
+                        }
+
+                        DataBase.Class1.UpdateDB(loadObjects);
+                    }
+                    catch (Exception e)
+                    {
+                        var audit = new Audit() { Id = new Random().Next(), TimeStamp = DateTime.Now, MessageType = MsgType.Err, Message = e.Message };
+                        audits.Add(audit);
+                    }
+
+                    DataBase.Class1.UpdateDBAudit(audits);
+
+
                     //foreach (Load objekat in loadObjects)
                     //{
                     //    if (!double.TryParse(objekat.MeasuredValue.ToString(), out double result))
@@ -131,7 +144,7 @@ namespace Service
                     //        //DataBase.Class1.UpdateDB(loadObjects);
                     //    }
                     //}
-                    DataBase.Class1.UpdateDB(loadObjects);
+
                 }
             }
 

@@ -29,6 +29,11 @@ namespace Client
             //IEstimate proxy = channel.CreateChannel();
         }
 
+        private static void GetValues()
+        {
+            
+        }
+
         private static void SendCsvFile()
         {
             var uploadPath = ConfigurationManager.AppSettings["uploadPath"];
@@ -46,6 +51,9 @@ namespace Client
             IUploader uploader = GetUploader(GetFileSender(proxy, GetFileInUseChecker(), uploadPath), uploadPath);
             uploader.Start();
             proxy.CreateObjects(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\fileMeasurements.csv");
+
+            // dodano za probu, IZBRISATI
+            proxy.GetValue("string test");
             //proxy.Del("string");
             //sr.Close();
             //fs.Close();
@@ -114,6 +122,7 @@ namespace Client
                     SendCsvFile();
                     return true;
                 case "3":
+                    
                     return true;
                 case "4":
                     return true;

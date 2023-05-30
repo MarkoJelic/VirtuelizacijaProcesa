@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audit.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="CustomException.cs" />
     <Compile Include="FileDirUtil.cs" />
@@ -52,8 +53,10 @@
     <Compile Include="IncorrectDataException.cs" />
     <Compile Include="Load.cs" />
     <Compile Include="Measurement.cs" />
+    <Compile Include="MsgType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultTypes.cs" />
+    <Compile Include="XmlSerialize.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

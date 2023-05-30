@@ -15,13 +15,19 @@ namespace DataBase
             string savePath = @"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\DataBase\TBL_Load.xml";
             var xmlSavePath = new XElement("TBL_Load", from obj in lista select new XElement("Object", new XElement("Id", obj.Id),
                                                                                                        new XElement("TimeStamp", obj.TimeStamp),
-                                                                                                       new XElement("Value", obj.MeasuredValue)));
+                                                                                                       new XElement("MeasuredValue", obj.MeasuredValue)));
             xmlSavePath.Save(savePath);
         }
 
-        public static void UpdateDBAudit(List<Load> lista)
+        public static void UpdateDBAudit(List<Audit> lista)
         {
-
+            string savePath = @"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\DataBase\TBL_Audit.xml";
+            var xmlSavePath = new XElement("TBL_Audit", from obj in lista
+                                                       select new XElement("Object", new XElement("Id", obj.Id),
+                                                                                     new XElement("TimeStamp", obj.TimeStamp),
+                                                                                     new XElement("MessageType", obj.MessageType),
+                                                                                     new XElement("Message", obj.Message)));
+            xmlSavePath.Save(savePath);
         }
     }
 }

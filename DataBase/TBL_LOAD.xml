@@ -3,26 +3,26 @@
   <Object>
     <Id>1</Id>
     <TimeStamp>2023-05-25T19:34:09</TimeStamp>
-    <Value>89.01</Value>
+    <MeasuredValue>89.01</MeasuredValue>
   </Object>
   <Object>
     <Id>2</Id>
     <TimeStamp>2023-05-25T20:34:09</TimeStamp>
-    <Value>74.42</Value>
+    <MeasuredValue>74.42</MeasuredValue>
   </Object>
   <Object>
     <Id>3</Id>
     <TimeStamp>2023-05-25T21:34:09</TimeStamp>
-    <Value>43.43</Value>
+    <MeasuredValue>43.43</MeasuredValue>
   </Object>
   <Object>
     <Id>4</Id>
     <TimeStamp>2023-05-25T22:34:09</TimeStamp>
-    <Value>47.53</Value>
+    <MeasuredValue>47.53</MeasuredValue>
   </Object>
   <Object>
     <Id>5</Id>
     <TimeStamp>2023-05-25T23:34:09</TimeStamp>
-    <Value>38.41</Value>
+    <MeasuredValue>38.41</MeasuredValue>
   </Object>
 </TBL_Load>
