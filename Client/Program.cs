@@ -31,14 +31,16 @@ namespace Client
 
         private static void SendCsvFile()
         {
+            var uploadPath = ConfigurationManager.AppSettings["uploadPath"];
+            FileDirUtil.CheckCreatePath(uploadPath);
             FileStream fs = new FileStream(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Client\bin\Debug\measured_today_09.csv",
                 FileMode.Open, FileAccess.Read, FileShare.Read);
 
             StreamReader sr = new StreamReader(fs);
             var csvReader = new CsvReader(sr, CultureInfo.InvariantCulture);
 
-            var uploadPath = ConfigurationManager.AppSettings["uploadPath"];
-            FileDirUtil.CheckCreatePath(uploadPath);
+            //var uploadPath = ConfigurationManager.AppSettings["uploadPath"];
+            //FileDirUtil.CheckCreatePath(uploadPath);
             ChannelFactory<IEstimate> channel = new ChannelFactory<IEstimate>("EstimateService");
             IEstimate proxy = channel.CreateChannel();
             IUploader uploader = GetUploader(GetFileSender(proxy, GetFileInUseChecker(), uploadPath), uploadPath);

@@ -42,7 +42,7 @@ namespace Common
 
         public static string[] GetAllFiles(string path)
         {
-            return Directory.GetFiles(path, "*.*", SearchOption.TopDirectoryOnly);
+            return Directory.GetFiles(path, "*.csv", SearchOption.TopDirectoryOnly);
         }
     }
 }
