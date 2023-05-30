@@ -1,5 +1,6 @@
 ﻿using Application;
 using Common;
+using DataBase;
 using CsvHelper;
 using FileSystemManipulation;
 using Microsoft.VisualBasic.FileIO;
@@ -11,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Service
 {
@@ -19,17 +21,18 @@ namespace Service
     {
         MyDelegate Del;
         private string path;
-        IEnumerable<Load> objects;
+        //IEnumerable<Load> objects;
 
         public EstimateService()
         {
             Del += GetValue;
             this.path = ConfigurationManager.AppSettings["path"];
             FileDirUtil.CheckCreatePath(path);
-            objects = CreateObjects(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\fileMeasurements.csv");
+            //objects = CreateObjects(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\fileMeasurements.csv");
+            //Console.WriteLine(objects.Count());
         }
 
-        public IEnumerable<Load> CreateObjects(string csv_file_path)
+        public void CreateObjects(string csv_file_path)
         {
             //List<Load> objects = new List<Load>();
 
@@ -38,7 +41,12 @@ namespace Service
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     var records = csv.GetRecords<Load>();
-                    return records;
+                    // Pozvati metodu iz DataBase
+                    List<Load> loadObjects = records.ToList();
+                    DataBase.Class1.UpdateDB(loadObjects);
+
+                    //List<Load> loadObjects = records.ToList();
+                    //XElement xmlElements = new XElement("DataBase.TBL_LOAD", loadObjects.Select(i => new XElement("objekat", i)));
                 }
             }
 

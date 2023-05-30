@@ -47,9 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TBL_LOAD.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj">
       <Project>{712d2b93-8547-4d48-ade9-851cd5e95444}</Project>
       <Name>Application</Name>
@@ -58,6 +55,9 @@
       <Project>{f62d3b82-005b-40c0-a152-f1b0a19194a8}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TBL_Load.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

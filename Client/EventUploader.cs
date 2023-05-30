@@ -13,7 +13,7 @@ namespace Client
         private readonly IFileSender fileSender;
         public EventUploader(IFileSender fileSender, string path)
         {
-            //CreateFileSystemWatcher(path);
+            CreateFileSystemWatcher(path);
             this.fileSender = fileSender;
         }
 

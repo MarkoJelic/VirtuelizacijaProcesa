@@ -19,6 +19,9 @@ namespace Common
         [OperationContract]
         FileManipulationResults GetFiles(FileManipulationOptions options);
 
+        [OperationContract]
+        void CreateObjects(string csv_file_path);
+
         //[OperationContract]
         //Load GetMax();
 

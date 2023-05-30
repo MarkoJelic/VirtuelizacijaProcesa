@@ -33,11 +33,11 @@ namespace Client
         {
             var uploadPath = ConfigurationManager.AppSettings["uploadPath"];
             FileDirUtil.CheckCreatePath(uploadPath);
-            FileStream fs = new FileStream(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Client\bin\Debug\measured_today_09.csv",
-                FileMode.Open, FileAccess.Read, FileShare.Read);
+            //FileStream fs = new FileStream(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Client\bin\Debug\fileMeasurements.csv",
+            //    FileMode.Open, FileAccess.Read, FileShare.Read);
 
-            StreamReader sr = new StreamReader(fs);
-            var csvReader = new CsvReader(sr, CultureInfo.InvariantCulture);
+            //StreamReader sr = new StreamReader(fs);
+            //var csvReader = new CsvReader(sr, CultureInfo.InvariantCulture);
 
             //var uploadPath = ConfigurationManager.AppSettings["uploadPath"];
             //FileDirUtil.CheckCreatePath(uploadPath);
@@ -45,8 +45,9 @@ namespace Client
             IEstimate proxy = channel.CreateChannel();
             IUploader uploader = GetUploader(GetFileSender(proxy, GetFileInUseChecker(), uploadPath), uploadPath);
             uploader.Start();
-            sr.Close();
-            fs.Close();
+            proxy.CreateObjects(@"C:\Users\Marko\source\repos\VirtuelizacijaProcesa\Service\fileMeasurements.csv");
+            //sr.Close();
+            //fs.Close();
 
             Console.WriteLine("Uploader Client is running. Press any key to exit.");
             Console.ReadLine();
