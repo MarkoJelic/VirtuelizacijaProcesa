@@ -33,11 +33,11 @@ namespace Service
             FileDirUtil.CheckCreatePath(path);
         }
 
-        //public void GetValue1(string query, string timeStamp)
-        //{
-        //    //del += GetValue;
-        //    del(query, timeStamp);
-        //}
+        public void GetValue1(string query, string timeStamp)
+        {
+            del += GetValue;
+            del(query, timeStamp);
+        }
 
         public void GetValue(string query, string timeStamp)
         {
@@ -80,22 +80,17 @@ namespace Service
 
                     if (query.Contains("min"))
                     {
-                        title = new UTF8Encoding(true).GetBytes(" Min: " + minValue.MeasuredValue);
+                        title = new UTF8Encoding(true).GetBytes("Min: " + minValue.MeasuredValue);
                         fs.Write(title, 0, title.Length);
                     }
                     if (query.Contains("max"))
                     {
-                        title = new UTF8Encoding(true).GetBytes(" Max: " + maxValue.MeasuredValue);
+                        title = new UTF8Encoding(true).GetBytes("\nMax: " + maxValue.MeasuredValue);
                         fs.Write(title, 0, title.Length);
                     }
                     if (query.Contains("stdDev"))
                     {
-                        title = new UTF8Encoding(true).GetBytes(" StdDev: " + stdDev);
-                        fs.Write(title, 0, title.Length);
-                    }
-                    else
-                    {
-                        title = new UTF8Encoding(true).GetBytes("Error");
+                        title = new UTF8Encoding(true).GetBytes("\nStdDev: " + stdDev);
                         fs.Write(title, 0, title.Length);
                     }
                     

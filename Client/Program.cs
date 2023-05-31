@@ -41,7 +41,7 @@ namespace Client
                 if (s != null && !string.IsNullOrEmpty(s))
                 {
                     string vreme = DateTime.Now.ToString();
-                    proxy.GetValue(s, vreme);
+                    proxy.GetValue1(s, vreme);
                     downloader.Download("Measurements.txt");
                     Console.WriteLine($"Ime preuzete datoteke: Measurements\nPutanja do datoteke: {downloadPath}Measurements.txt");
                 }

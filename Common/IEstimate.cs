@@ -13,6 +13,9 @@ namespace Common
     public interface IEstimate
     {
         [OperationContract]
+        void GetValue1(string query, string timeStamp);
+
+        [OperationContract]
         void GetValue(string query, string timeStamp);
 
         [OperationContract]
