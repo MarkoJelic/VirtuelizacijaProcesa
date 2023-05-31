@@ -33,10 +33,10 @@ namespace Service
             FileDirUtil.CheckCreatePath(path);
         }
 
-        //public void GetValue1(MyDelegate myDel)
+        //public void GetValue1(string query, string timeStamp)
         //{
-        //    del += myDel;
-        //    myDel()
+        //    //del += GetValue;
+        //    del(query, timeStamp);
         //}
 
         public void GetValue(string query, string timeStamp)
@@ -71,27 +71,40 @@ namespace Service
                 // Create a new file     
                 using (FileStream fs = File.Create(fileName))
                 {
-                    Byte[] title;
+                    Byte[] title = new UTF8Encoding(true).GetBytes("");
                     //List<string> queryParts = query.Split(' ').ToList();
                     //for (int i = 0; i < queryParts.Count; i++)
                     //{
                     //    title = new UTF8Encoding(true).GetBytes($"{queryParts[i]}: ");
                     //}
 
-                    if (query == "min")
+                    if (query.Contains("min"))
                     {
-                        title = new UTF8Encoding(true).GetBytes("Min: " + minValue.MeasuredValue);
+                        title = new UTF8Encoding(true).GetBytes(" Min: " + minValue.MeasuredValue);
+                        fs.Write(title, 0, title.Length);
                     }
-                    else if (query == "max")
+                    if (query.Contains("max"))
                     {
-                        title = new UTF8Encoding(true).GetBytes("Max: " + maxValue.MeasuredValue);
+                        title = new UTF8Encoding(true).GetBytes(" Max: " + maxValue.MeasuredValue);
+                        fs.Write(title, 0, title.Length);
                     }
-                    else //if (query == "stdDev")
+                    if (query.Contains("stdDev"))
                     {
-                        title = new UTF8Encoding(true).GetBytes("StdDev: " + stdDev);
+                        title = new UTF8Encoding(true).GetBytes(" StdDev: " + stdDev);
+                        fs.Write(title, 0, title.Length);
                     }
+                    else
+                    {
+                        title = new UTF8Encoding(true).GetBytes("Error");
+                        fs.Write(title, 0, title.Length);
+                    }
+                    
+                    //else //if (query == "stdDev")
+                    //{
+                    //    title = new UTF8Encoding(true).GetBytes("StdDev: " + stdDev);
+                    //}
                     //Byte[] title = new UTF8Encoding(true).GetBytes("Min: " + minValue.MeasuredValue + "  Max: " + maxValue.MeasuredValue + "  StdDev:" + stdDev);
-                    fs.Write(title, 0, title.Length);
+                    //fs.Write(title, 0, title.Length);
                 }
 
                 
